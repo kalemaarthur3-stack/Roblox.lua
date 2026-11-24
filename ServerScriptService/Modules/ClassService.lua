@@ -27,6 +27,10 @@ function ClassService.Equip(player, className)
     local info = Config.Classes[className]
     if not info then return false, "Unknown class." end
     if not Data.Get(player) then return false, "Player data is not loaded." end
+    local character = player.Character
+    if not character or not character:FindFirstChildOfClass("Humanoid") then
+        return false, "Wait for your character to load before selecting a class."
+    end
 
     if not Data.IsClassUnlocked(player, className) then
         local ok, message = Data.UnlockClass(player, className, info.Cost)
