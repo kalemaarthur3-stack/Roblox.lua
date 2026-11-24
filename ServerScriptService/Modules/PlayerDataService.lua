@@ -86,7 +86,8 @@ function Service.Load(player)
 
     if data == nil then
         -- Legacy master script used the numeric UserId as the DataStore key.
-        local legacyOk, legacy = read(player.UserId)
+        -- DataStore keys are strings; this is the string form of the old UserId key.
+        local legacyOk, legacy = read(tostring(player.UserId))
         if not legacyOk then return false, "Could not check your old save." end
         if legacy ~= nil then
             data = normalize(legacy)
